@@ -7,7 +7,7 @@
         "expect": [
           {
             "method": "sendMessage",
-            "payload": { "text": "👋 Welcome! Tap a button below to get started." }
+            "payload": { "text": "👋 Welcome! Premium group access for 500 KES via M-Pesa.\n\nTap a button below to get started." }
           }
         ]
       }

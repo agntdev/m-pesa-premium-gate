@@ -1,0 +1,98 @@
+[
+  {
+    "name": "Payment flow — initiate and enter M-Pesa number",
+    "steps": [
+      {
+        "send": { "callback": "payment:start" },
+        "expect": [
+          { "method": "answerCallbackQuery" },
+          {
+            "method": "editMessageText",
+            "payload": {
+              "text": "Premium group access costs 500 KES.\n\nEnter your M-Pesa phone number to receive a payment prompt:"
+            }
+          }
+        ]
+      },
+      {
+        "send": { "text": "0712345678" },
+        "expect": [
+          {
+            "method": "sendMessage",
+            "payload": {
+              "text": "You'll pay 500 KES to M-Pesa Till 123456.\n\nA payment prompt will be sent to 254712345678."
+            }
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "name": "Payment flow — invalid phone number rejected",
+    "steps": [
+      {
+        "send": { "callback": "payment:start" },
+        "expect": [
+          { "method": "answerCallbackQuery" },
+          {
+            "method": "editMessageText",
+            "payload": {
+              "text": "Premium group access costs 500 KES.\n\nEnter your M-Pesa phone number to receive a payment prompt:"
+            }
+          }
+        ]
+      },
+      {
+        "send": { "text": "abc" },
+        "expect": [
+          {
+            "method": "sendMessage",
+            "payload": {
+              "text": "Invalid phone number. Enter a valid M-Pesa number (e.g. 0712345678):"
+            }
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "name": "Payment flow — confirm payment triggers STK push",
+    "steps": [
+      {
+        "send": { "callback": "payment:start" },
+        "expect": [
+          { "method": "answerCallbackQuery" },
+          {
+            "method": "editMessageText",
+            "payload": {
+              "text": "Premium group access costs 500 KES.\n\nEnter your M-Pesa phone number to receive a payment prompt:"
+            }
+          }
+        ]
+      },
+      {
+        "send": { "text": "0712345678" },
+        "expect": [
+          {
+            "method": "sendMessage",
+            "payload": {
+              "text": "You'll pay 500 KES to M-Pesa Till 123456.\n\nA payment prompt will be sent to 254712345678."
+            }
+          }
+        ]
+      },
+      {
+        "send": { "callback": "payment:confirm:254712345678" },
+        "expect": [
+          { "method": "answerCallbackQuery" },
+          {
+            "method": "editMessageText",
+            "payload": {
+              "text": "Payment could not be initiated: M-Pesa integration not configured. Please pay manually.\n\nYou can retry or check your payment status later."
+            }
+          }
+        ]
+      }
+    ]
+  }
+]
