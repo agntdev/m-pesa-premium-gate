@@ -1,0 +1,20 @@
+[
+  {
+    "name": "Check payment status",
+    "steps": [
+      {
+        "expect": [
+          {
+            "method": "sendMessage",
+            "payload": {
+              "text": "Verify M-Pesa transaction status after payment attempt"
+            }
+          }
+        ],
+        "send": {
+          "callback": "payment:check"
+        }
+      }
+    ]
+  }
+]
